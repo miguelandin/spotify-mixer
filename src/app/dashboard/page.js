@@ -1,3 +1,7 @@
+'use client';
+
+import { getArtistByName } from '@/lib/artists'
+
 export default function DashBoardPage(){
-	return (<h1> Hasta aquí he llegao </h1>)
+	getArtistByName("maximum the hormone")
 }
