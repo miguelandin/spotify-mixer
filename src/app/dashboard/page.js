@@ -1,7 +1,10 @@
 'use client';
 
-import { getArtistByName } from '@/lib/artists'
-
-export default function DashBoardPage(){
-	getArtistByName("maximum the hormone")
+import TrackImg from "../components/TrackImg";
+export default function DashBoardPage() {
+    return (<>
+        <TrackImg id="42a9PusvgFnyH0WgdCn6PV" />
+        <TrackImg id="11dFghVXANMlKmJXsNCbNl" />
+    </>
+    );
 }
