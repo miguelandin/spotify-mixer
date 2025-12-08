@@ -1,7 +1,7 @@
 import { getAccessToken } from "@/lib/auth.js";
 
 export async function getArtistsByName(userIn) { // return the artists you search
-    const token = getAccessToken();
+    const token = getAccessToken()
 
     // obtain the artists
     const result = await fetch(
@@ -9,13 +9,22 @@ export async function getArtistsByName(userIn) { // return the artists you searc
         {
             headers: { 'Authorization': `Bearer ${token}` }
         }
-    );
-    const artists = await result.json();
+    )
+    const data = await result.json()
+
+    const artists = data.artists.items.map(artist => ({
+        id: artist.id,
+        name: artist.name,
+        image: artist.images?.[0]?.url,
+        genres: artist.genres,
+        popularity: artist.popularity
+    }))
+
     return artists
 }
 
 export async function getArtistById(id) {
-    const token = getAccessToken();
+    const token = getAccessToken()
 
     //obtain the artist
     const result = await fetch(
@@ -23,13 +32,22 @@ export async function getArtistById(id) {
         {
             headers: { 'Authorization': `Bearer ${token}` }
         }
-    );
-    const artist = await result.json();
-    return artist;
+    )
+    const data = await result.json()
+
+    const artist = {
+        id: data.id,
+        name: data.name,
+        image: data.images?.[0]?.url,
+        genres: data.genres,
+        popularity: data.popularity
+    }
+
+    return artist
 }
 
 export async function getYourTopArtists() { // get your top 5 most listened artist
-    const token = getAccessToken();
+    const token = getAccessToken()
 
     // obtain the artists
     const result = await fetch(
@@ -37,7 +55,16 @@ export async function getYourTopArtists() { // get your top 5 most listened arti
         {
             headers: { 'Authorization': `Bearer ${token}` }
         }
-    );
-    const artists = await result.json();
+    )
+    const data = await result.json()
+
+    const artists = data.items.map(artist => ({
+        id: artist.id,
+        name: artist.name,
+        image: artist.images?.[0]?.url,
+        genres: artist.genres,
+        popularity: artist.popularity
+    }))
+
     return artists
 }

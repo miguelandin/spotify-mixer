@@ -1,41 +1,40 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { getTrackById } from '@/lib/tracks';
 
-import { useEffect, useState } from 'react'
-import { getTrackById } from '@/lib/tracks'
-
-// return <img> with the track cover passed by id
-export default function TrackImg({ id }) {
-    const [track, setTrack] = useState(null)
+export default function TrackImg(track) {
+    const [imageUrl, setImageUrl] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
 
     useEffect(() => {
-        const fetchTrack = async () => {
+        let isMounted = true
+
+        const fetchTrackImage = async () => {
             try {
-                const trackData = await getTrackById(id)
-                setTrack(trackData)
-            } catch (err) {
-                setError(err.message || 'Error fetching track')
-                console.error('Error:', err)
+                setImageUrl(track.image)
+            } catch (error) {
+                console.error("Error al obtener imagen:", error)
             } finally {
-                setLoading(false)
+                if (isMounted) setLoading(false)
             }
         }
 
-        fetchTrack()
-    }, [id])
+        if (id) {
+            fetchTrackImage()
+        }
 
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>Error: {error}</div>
-    if (!track) return <div>No track found</div>
+        return () => { isMounted = false }
+    }, [track])
 
+    if (loading) return <div className="w-[150px] h-[150px] bg-gray-200 animate-pulse rounded-md" />
+
+    if (!imageUrl) return <div className="w-[150px] h-[150px] bg-gray-300 flex items-center justify-center rounded-md">?</div>
 
     return (
-        !track?.album?.images?.[0]?.url ?
-            <h1>imgNotFound</h1> :
-            <img
-                src={track.album.images[0].url}
-                alt={track.name || 'Track image'}
-            />
+        <img
+            src={imageUrl}
+            alt="Track Cover"
+            className="w-[150px] h-[150px] object-cover rounded-md shadow-lg hover:scale-105 transition-transform"
+        />
     )
 }
