@@ -1,40 +1,35 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { getTrackById } from '@/lib/tracks';
 
-export default function TrackImg(track) {
-    const [imageUrl, setImageUrl] = useState(null)
-    const [loading, setLoading] = useState(true)
+export default function TrackImg({ track }) {
 
-    useEffect(() => {
-        let isMounted = true
+    const imageUrl = track.image
+    const size = 150
+    const altText = track.name
 
-        const fetchTrackImage = async () => {
-            try {
-                setImageUrl(track.image)
-            } catch (error) {
-                console.error("Error al obtener imagen:", error)
-            } finally {
-                if (isMounted) setLoading(false)
-            }
-        }
-
-        if (id) {
-            fetchTrackImage()
-        }
-
-        return () => { isMounted = false }
-    }, [track])
-
-    if (loading) return <div className="w-[150px] h-[150px] bg-gray-200 animate-pulse rounded-md" />
-
-    if (!imageUrl) return <div className="w-[150px] h-[150px] bg-gray-300 flex items-center justify-center rounded-md">?</div>
+    if (!imageUrl) {
+        return (
+            <div
+                className="bg-gray-300 flex items-center justify-center rounded-md"
+                style={{ width: size, height: size }}
+            >
+                ?
+            </div>
+        )
+    }
 
     return (
-        <img
-            src={imageUrl}
-            alt="Track Cover"
-            className="w-[150px] h-[150px] object-cover rounded-md shadow-lg hover:scale-105 transition-transform"
-        />
+        <div
+            className="relative rounded-md shadow-lg hover:scale-105 transition-transform"
+            style={{ width: size, height: size }}
+        >
+            <img
+                src={imageUrl}
+                alt={altText}
+                width={size}
+                height={size}
+                style={{ objectFit: 'cover' }}
+                className="rounded-md"
+            />
+        </div>
     )
 }
