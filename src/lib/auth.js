@@ -52,7 +52,6 @@ export async function refreshSpotifyToken() {
     const refreshToken = localStorage.getItem('spotify_refresh_token');
 
     if (!refreshToken) {
-        console.error('No hay refresh token disponible.');
         logout();
         return false;
     }
@@ -72,12 +71,10 @@ export async function refreshSpotifyToken() {
             saveTokens(data.access_token, data.refresh_token, data.expires_in);
             return true;
         } else {
-            console.error('Fallo al refrescar token:', data.error);
             logout();
             return false;
         }
     } catch (error) {
-        console.error('Error de red al refrescar token:', error);
         logout();
         return false;
     }
@@ -90,7 +87,6 @@ export async function getAccessToken() {
     if (!token || !expiration) return null;
 
     if (Date.now() > parseInt(expiration)) {
-        console.log('Token expirado, intentando refrescar...');
         const refreshSuccessful = await refreshSpotifyToken();
 
         if (refreshSuccessful) {

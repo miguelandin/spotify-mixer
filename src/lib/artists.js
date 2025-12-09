@@ -16,7 +16,8 @@ export async function getArtistsByName(userIn) {
         name: artist.name,
         image: artist.images?.[0]?.url,
         genres: artist.genres,
-        popularity: artist.popularity
+        popularity: artist.popularity,
+        uri: artist.uri
     }))
 
     return artists
@@ -38,7 +39,8 @@ export async function getArtistById(id) {
         name: data.name,
         image: data.images?.[0]?.url,
         genres: data.genres,
-        popularity: data.popularity
+        popularity: data.popularity,
+        uri: artist.uri
     }
 
     return artist
@@ -61,7 +63,8 @@ export async function getYourTopArtists() {
         name: artist.name,
         image: artist.images?.[0]?.url,
         genres: artist.genres,
-        popularity: artist.popularity
+        popularity: artist.popularity,
+        uri: artist.uri
     }))
 
     return artists

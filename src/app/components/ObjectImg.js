@@ -1,10 +1,10 @@
 'use client';
 
-export default function TrackImg({ track }) {
+export default function ObjectImg({ object }) {
 
-    const imageUrl = track.image
+    const imageUrl = object.image
     const size = 150
-    const altText = track.name
+    const altText = object.name
 
     if (!imageUrl) {
         return (
@@ -22,7 +22,7 @@ export default function TrackImg({ track }) {
             className="relative rounded-md shadow-lg hover:scale-105 transition-transform"
             style={{ width: size, height: size }}
         >
-            <a href={track.uri}>
+            <a href={object.uri}>
                 <img
                     src={imageUrl}
                     alt={altText}
