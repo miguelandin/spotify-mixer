@@ -1,9 +1,8 @@
 import { getAccessToken } from "@/lib/auth.js";
 
-export async function getArtistsByName(userIn) { // return the artists you search
-    const token = getAccessToken()
+export async function getArtistsByName(userIn) {
+    const token = await getAccessToken()
 
-    // obtain the artists
     const result = await fetch(
         `https://api.spotify.com/v1/search?q=${userIn}&type=artist&market=ES&limit=5`,
         {
@@ -24,9 +23,8 @@ export async function getArtistsByName(userIn) { // return the artists you searc
 }
 
 export async function getArtistById(id) {
-    const token = getAccessToken()
+    const token = await getAccessToken()
 
-    //obtain the artist
     const result = await fetch(
         `https://api.spotify.com/v1/artists/${id}`,
         {
@@ -46,8 +44,8 @@ export async function getArtistById(id) {
     return artist
 }
 
-export async function getYourTopArtists() { // get your top 5 most listened artist
-    const token = getAccessToken()
+export async function getYourTopArtists() {
+    const token = await getAccessToken()
 
     // obtain the artists
     const result = await fetch(

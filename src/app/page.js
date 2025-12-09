@@ -5,25 +5,27 @@ import { useRouter } from 'next/navigation';
 import { isAuthenticated, getSpotifyAuthUrl } from '@/lib/auth';
 
 export default function Home() {
-  const router = useRouter();
+    const router = useRouter();
 
-  useEffect(() => {
-    // Si ya está autenticado, redirigir al dashboard
-    if (isAuthenticated()) {
-      router.push('/dashboard');
-    }
-  }, [router]);
+    useEffect(() => {
+        const checkAuth = async () => {
+            if (await isAuthenticated()) {
+                router.push('/dashboard');
+            }
+        };
+        checkAuth();
+    }, [router]);
 
-  const handleLogin = () => {
-    window.location.href = getSpotifyAuthUrl();
-  };
+    const handleLogin = () => {
+        window.location.href = getSpotifyAuthUrl();
+    };
 
-  return (
-      <>
-        🎵 Spotify Taste Mixer
-	  <button onClick={handleLogin}>Login</button>
-      </>  
-  );
+    return (
+        <>
+            🎵 Spotify Taste Mixer
+            <button onClick={handleLogin}>Login</button>
+        </>
+    );
 }
 
 
