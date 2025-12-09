@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { getTracksByName } from "@/lib/tracks";
-import TrackImg from "../components/TrackImg";
+import ShowTrack from "../components/ShowTrack";
 
 export default function DashBoardPage() {
     const [track, setTrack] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const trackName = "Uptown"
+    const trackName = "Iris Out"
     useEffect(() => {
         const loadTrack = async () => {
             const foundTrack = await getTracksByName(trackName)
@@ -22,5 +22,5 @@ export default function DashBoardPage() {
     if (loading)
         return <div className="p-4">Loading...</div>
     else
-        return <TrackImg track={track} />
+        return (<ShowTrack track={track} />)
 }

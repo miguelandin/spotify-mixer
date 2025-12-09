@@ -17,9 +17,10 @@ export async function getTracksByName(userIn) {
         popularity: track.popularity,
         image: track.album?.images?.[0]?.url,
         year: track.album?.release_date?.split('-')[0],
+        uri: track.uri,
         artists: track.artists?.map(artist => ({
-            artist_name: artist.name,
-            artist_id: artist.id
+            name: artist.name,
+            id: artist.id
         }))
     }))
 
@@ -43,9 +44,10 @@ export async function getTrackById(id) {
         popularity: data.popularity,
         image: data.album?.images?.[0]?.url,
         year: data.album?.release_date?.split('-')[0],
+        uri: data.uri,
         artists: data.artists?.map(artist => ({
-            artist_name: artist.name,
-            artist_id: artist.id
+            name: artist.name,
+            id: artist.id
         }))
     }
 
@@ -69,9 +71,10 @@ export async function getYourTopTracks() {
         popularity: track.popularity,
         image: track.album?.images?.[0]?.url,
         year: track.album?.release_date?.split('-')[0],
+        uri: track.uri,
         artists: track.artists?.map(artist => ({
-            artist_name: artist.name,
-            artist_id: artist.id
+            name: artist.name,
+            id: artist.id
         }))
     }))
 

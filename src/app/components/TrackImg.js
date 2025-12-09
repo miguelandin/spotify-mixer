@@ -22,14 +22,16 @@ export default function TrackImg({ track }) {
             className="relative rounded-md shadow-lg hover:scale-105 transition-transform"
             style={{ width: size, height: size }}
         >
-            <img
-                src={imageUrl}
-                alt={altText}
-                width={size}
-                height={size}
-                style={{ objectFit: 'cover' }}
-                className="rounded-md"
-            />
+            <a href={track.uri}>
+                <img
+                    src={imageUrl}
+                    alt={altText}
+                    width={size}
+                    height={size}
+                    style={{ objectFit: 'cover' }}
+                    className="rounded-md"
+                />
+            </a>
         </div>
     )
 }
