@@ -8,6 +8,9 @@ export default function Navbar() {
     const pathname = usePathname()
     const router = useRouter()
 
+    if (pathname === "/")
+        return null
+
     const navLinks = [
         { name: "Tracks", href: "/tracks" },
         { name: "Artists", href: "/artists" },
@@ -37,13 +40,10 @@ export default function Navbar() {
                                     <Link
                                         key={link.name}
                                         href={link.href}
-                                        className={`
-                      text-sm font-medium transition-colors duration-300
-                      ${isActive
-                                                ? "text-green-400 border-b-2 border-green-400 pb-1"
-                                                : "text-gray-400 hover:text-white pb-1"
-                                            }
-                    `}
+                                        className={`text-sm font-medium transition-colors duration-300 ${isActive
+                                            ? "text-green-400 border-b-2 border-green-400 pb-1"
+                                            : "text-gray-400 hover:text-white pb-1"
+                                            }`}
                                     >
                                         {link.name}
                                     </Link>
