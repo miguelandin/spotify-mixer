@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { getTracksByName } from "@/lib/tracks";
-import ShowTrack from "./ShowTrack";
+import ObjectsList from "./ObjectList";
+import { TRACKS_KEY } from "@/lib/storage";
 
 export default function SearchTrackBar() {
     const [UserInput, setUserInput] = useState("")
@@ -35,9 +36,7 @@ export default function SearchTrackBar() {
                 onChange={handleChange}
                 placeholder="Search tracks..."
             />
-            {tracks.map((track, index) => (
-                <ShowTrack key={index} track={track} />
-            ))}
+            <ObjectsList objects={tracks} type={TRACKS_KEY} />
         </div>
     )
 }

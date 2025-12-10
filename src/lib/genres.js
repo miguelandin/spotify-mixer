@@ -9,16 +9,27 @@ const genres = ['acoustic', 'afrobeat', 'alt-rock', 'alternative', 'ambient', 'a
     'reggaeton', 'road-trip', 'rock', 'rock-n-roll', 'rockabilly', 'romance', 'sad', 'salsa', 'samba', 'sertanejo', 'show-tunes', 'singer-songwriter', 'ska', 'sleep', 'songwriter', 'soul',
     'soundtracks', 'spanish', 'study', 'summer', 'swedish', 'synth-pop', 'tango', 'techno', 'trance', 'trip-hop', 'turkish', 'work-out', 'world-music']
 
-export function getGenreByName(genre) { // return object with genre and index
-    const result = stringSimilarity.findBestMatch(genre, genres);
+export function getGenresByName(genre) {
+    const result = stringSimilarity.findBestMatch(genre, genres)
 
-    if (result.bestMatch.rating < 0.5)
-        return null;
+    const allMatches = result.ratings.map((item, index) => ({
+        genre: item.target,
+        rating: item.rating,
+        index: index
+    }))
 
-    return {
-        genre: result.bestMatch.target,
-        index: result.bestMatchIndex
-    }
+    const bestMatches = allMatches
+        .filter(item => item.rating > 0.3)
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5)
+
+    if (bestMatches.length === 0)
+        return []
+
+    return bestMatches.map(item => ({
+        genre: item.genre,
+        index: item.index
+    }))
 }
 
 export function getGenreByIndex(index) {

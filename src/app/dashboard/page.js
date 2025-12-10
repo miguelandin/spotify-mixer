@@ -1,39 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getTracksByName, getTrackById } from "@/lib/tracks";
-import ShowTrack from "../components/ShowTrack";
-import { getArtistsByName } from "@/lib/artists";
-import ArtistInfo from "../components/ArtistInfo";
-import ShowArtist from "../components/ShowArtist";
-import SearchArtistBar from "../components/SearchArtistBar";
-import SearchTrackBar from "../components/SearchTrackBar";
-import { generatePlaylist } from "@/lib/spotify";
-import { getList, ARTISTS_KEY, TRACKS_KEY, getLoadedList } from "@/lib/storage";
-import { getAllGenres, getGenreByName } from "@/lib/genres";
-import ObjectsList from "../components/ObjectList";
+import SearchGenreBar from "../components/SearchGenreBar";
+import GenreList from "../components/GenreList";
+import { useState } from "react";
 
 export default function DashBoardPage() {
-    const [playList, setPlaylist] = useState([])
-    const [favorites, setFavorites] = useState([])
+    const [genreList, setGenreList] = useState([])
 
-    const preferences = {
-        artists: getList(ARTISTS_KEY),
-        genres: [getGenreByName("j-pop"), getGenreByName("j-rock")],
-        decades: [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020],
-        popularity: [0, 100]
-    }
+    return (
+        <div className="space-y-6">
+            <SearchGenreBar
+                setGenreList={setGenreList}
+                genreList={genreList}
+            />
 
-    useEffect(() => {
-        const loadTracks = async () => {
-            const data = await generatePlaylist(preferences)
-            const data2 = await getLoadedList(ARTISTS_KEY)
-            setFavorites(data2)
-            setPlaylist(data)
-        }
-
-        loadTracks();
-    }, [])
-
-    return <ObjectsList objects={favorites} name={"hello"} type={ARTISTS_KEY} />
+            {genreList.length > 0 && (
+                <div className="mt-4">
+                    <h2 className="text-white text-lg font-bold mb-2 ml-1">Selected Genres:</h2>
+                    <GenreList
+                        genresToShow={genreList}
+                        selectedGenres={genreList}
+                        setGenreList={setGenreList}
+                    />
+                </div>
+            )}
+        </div>
+    )
 }
