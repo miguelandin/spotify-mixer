@@ -1,5 +1,9 @@
 "use client";
 
+import { getTrackById } from "./tracks";
+import { getArtistById } from "./artists";
+import { useEffect, useState } from "react";
+
 export const TRACKS_KEY = "tracks"
 export const ARTISTS_KEY = "artists"
 
@@ -39,10 +43,27 @@ export function isOnStorage(object, key) {
         return false
 }
 
-export function getList() {
+export function getList(key) {
     if (typeof window === "undefined") return [];
 
     const objectList = localStorage.getItem(key)
 
     return objectList ? JSON.parse(objectList) : []
+}
+
+export async function getLoadedList(key) {
+    const ids = getList(key);
+
+    if (!ids || ids.length === 0) return [];
+
+    let searchFn;
+    if (key === TRACKS_KEY) searchFn = getTrackById;
+    else if (key === ARTISTS_KEY) searchFn = getArtistById;
+    else return [];
+
+    const promises = ids.map(id => searchFn(id));
+
+    const loadedList = await Promise.all(promises);
+    console.log(loadedList)
+    return loadedList;
 }

@@ -40,7 +40,7 @@ export async function getArtistById(id) {
         image: data.images?.[0]?.url,
         genres: data.genres,
         popularity: data.popularity,
-        uri: artist.uri
+        uri: data.uri
     }
 
     return artist
