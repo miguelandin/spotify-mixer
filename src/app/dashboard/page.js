@@ -6,12 +6,14 @@ import ShowTrack from "../components/ShowTrack";
 import { getArtistsByName } from "@/lib/artists";
 import ArtistInfo from "../components/ArtistInfo";
 import ShowArtist from "../components/ShowArtist";
+import SearchArtistBar from "../components/SearchArtistBar";
+import SearchTrackBar from "../components/SearchTrackBar";
 
 export default function DashBoardPage() {
     const [track, setTrack] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const trackName = "Steve Lazy"
+    const trackName = "albert einstein"
     useEffect(() => {
         const loadTrack = async () => {
             const foundTrack = await getArtistsByName(trackName)
@@ -25,5 +27,7 @@ export default function DashBoardPage() {
     if (loading)
         return <div className="p-4">Loading...</div>
     else
-        return (<ShowArtist artist={track} />)
+        return (<>
+            <SearchTrackBar />
+            <SearchArtistBar /></>)
 }

@@ -1,5 +1,3 @@
-'use client';
-
 export default function ObjectImg({ object }) {
 
     const imageUrl = object.image
@@ -22,7 +20,10 @@ export default function ObjectImg({ object }) {
             className="relative rounded-md shadow-lg hover:scale-105 transition-transform"
             style={{ width: size, height: size }}
         >
-            <a href={object.uri}>
+            <a
+                href={object.uri}
+                onClick={(e) => e.stopPropagation()}
+            >
                 <img
                     src={imageUrl}
                     alt={altText}

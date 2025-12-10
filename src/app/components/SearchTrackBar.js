@@ -1,28 +1,28 @@
 "use client";
 
-import { getArtistsByName } from "@/lib/artists"
 import { useState, useEffect } from "react"
-import ShowArtist from "./ShowArtist";
+import { getTracksByName } from "@/lib/tracks";
+import ShowTrack from "./ShowTrack";
 
-export default function SearchArtistBar() {
+export default function SearchTrackBar() {
     const [UserInput, setUserInput] = useState("")
-    const [artists, setArtists] = useState([])
+    const [tracks, setTracks] = useState([])
 
     const handleChange = (event) => {
         setUserInput(event.target.value)
     }
 
     useEffect(() => {
-        const searchArtist = async () => {
+        const searchTrack = async () => {
             if (UserInput.length > 0) {
-                const results = await getArtistsByName(UserInput)
-                setArtists(results)
+                const results = await getTracksByName(UserInput)
+                setTracks(results)
             } else
-                setArtists([])
+                setTracks([])
 
         }
 
-        searchArtist();
+        searchTrack();
 
     }, [UserInput])
 
@@ -46,10 +46,10 @@ export default function SearchArtistBar() {
                 type="text"
                 value={UserInput}
                 onChange={handleChange}
-                placeholder="Search artists..."
+                placeholder="Search tracks..."
             />
-            {artists.map((artist, index) => (
-                <ShowArtist key={index} artist={artist} />
+            {tracks.map((track, index) => (
+                <ShowTrack key={index} track={track} />
             ))}
         </div>
     )
