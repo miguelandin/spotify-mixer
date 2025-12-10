@@ -7,7 +7,7 @@ cd spotify-mixer
 npm install
 ```
 
-##### Is required the file in the root of the proyect .env.local:
+##### Required file in the root of the proyect .env.local:
 ```bash
 #.env.local
 SPOTIFY_CLIENT_ID=your_client_id_aqui
@@ -16,7 +16,7 @@ NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id_aqui
 NEXT_PUBLIC_REDIRECT_URI=http://127.0.0.1:3000/auth/callback
 ```
 
-###### Execute
+##### Execute
 ```bash
 npm run dev
 ```
