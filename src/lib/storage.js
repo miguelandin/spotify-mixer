@@ -2,7 +2,6 @@
 
 import { getTrackById } from "./tracks";
 import { getArtistById } from "./artists";
-import { useEffect, useState } from "react";
 
 export const TRACKS_KEY = "tracks"
 export const ARTISTS_KEY = "artists"
@@ -57,6 +56,7 @@ export async function getLoadedList(key) {
     if (!ids || ids.length === 0) return [];
 
     let searchFn;
+
     if (key === TRACKS_KEY) searchFn = getTrackById;
     else if (key === ARTISTS_KEY) searchFn = getArtistById;
     else return [];
@@ -64,6 +64,5 @@ export async function getLoadedList(key) {
     const promises = ids.map(id => searchFn(id));
 
     const loadedList = await Promise.all(promises);
-    console.log(loadedList)
     return loadedList;
 }
